@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -28,7 +27,6 @@ const Link = ({
     )
 }
 
-
 const mapStateToPropsFilterLink = (state, ownProps) => {
     return {
         active: state.visibilityFilter === ownProps.filter
@@ -46,9 +44,6 @@ const mapDispatchToPropsFilterLink = (dispatch, ownProps) => {
 
 const FilterLinkContainer = connect(mapStateToPropsFilterLink, mapDispatchToPropsFilterLink)(Link);
 
-
-
-
 const Footer = () => (
     <p>
         {" "}<FilterLinkContainer filter="SHOW_ALL" >Show all</FilterLinkContainer>
@@ -56,7 +51,6 @@ const Footer = () => (
         {" "}<FilterLinkContainer filter="SHOW_COMPLETED" >Show completed</FilterLinkContainer>
     </p>
 )
-
 
 const getVisibleTodos = (
     todos,
@@ -90,7 +84,6 @@ const Todo = ({
             completed ?
             "line-through" : "none"
         }}
-    
     >
         {text}
     </li>
