@@ -6,6 +6,8 @@ import { todoApp } from './reducers/reducer';
 import AddTodo from './components/AddTodo';
 import VisibleToDoList from './components/Todos';
 import Footer from './components/Footer';
+import { saveState, loadLocalStorage } from './LocalStorage';
+import throttle from 'lodash/throttle';
 
 
 const TodoApp = () => {
@@ -18,16 +20,25 @@ const TodoApp = () => {
     )
 }
 
-const persistedState = {
-    todos: [{
-        id: 'xxx',
-        text: 'persist state',
-        completed: false
-        }],
-    visibilityFilter: 'SHOW_ACTIVE'
-}
+// const persistedState = {
+//     todos: [{
+//         id: 'xxx',
+//         text: 'persist state',
+//         completed: false
+//         }],
+//     visibilityFilter: 'SHOW_ACTIVE'
+// }
+
+const persistedState = loadLocalStorage();
 
 const store = createStore(todoApp, persistedState);
+store.subscribe(() => {
+    throttle(() => {
+        saveState({
+            todos: store.getState().todos
+        })
+    }, 1000);
+})
 console.log(store.getState())
 
 ReactDOM.render(
