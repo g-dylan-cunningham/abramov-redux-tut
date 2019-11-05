@@ -18,19 +18,23 @@ const TodoApp = () => {
     )
 }
 
+const persistedState = {
+    todos: [{
+        id: 'xxx',
+        text: 'persist state',
+        completed: false
+        }],
+    visibilityFilter: 'SHOW_ACTIVE'
+}
 
+const store = createStore(todoApp, persistedState);
+console.log(store.getState())
 
+ReactDOM.render(
+    <Provider store={store}>
+        <TodoApp />
+    </Provider>, document.getElementById('root'));
 
-// const render = () => {
-    ReactDOM.render(
-        <Provider store={createStore(todoApp)}>
-            {/* <StoreContext.Provider> */}
-                <TodoApp />
-            {/* </StoreContext.Provider> */}
-        </Provider>, document.getElementById('root'));
-// }
-// render();
-// store.subscribe(render);
 
 
 

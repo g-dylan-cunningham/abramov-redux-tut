@@ -1,7 +1,7 @@
 let nextId = 0;
 const addTodo = (text) => ({
     type: "ADD_TODO",
-    id: nextId++,
+    id: (nextId++).toString(),
     text: text
 })
 
