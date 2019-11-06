@@ -62,11 +62,11 @@ const TodoList = ({
 // }
 // VisibleToDoList.contextType = StoreContext;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         visibleTodos: getVisibleTodos(
             state.todos, 
-            state.visibilityFilter)
+            ownProps.filter)
     }
 }
 
@@ -86,13 +86,13 @@ const getVisibleTodos = (
     filter
 ) => {
     switch(filter) {
-        case "SHOW_ALL":
+        case "all":
             return todos;
-        case "SHOW_COMPLETED":
+        case "completed":
             return todos.filter(
                 todo => todo.completed
             );
-        case "SHOW_ACTIVE":
+        case "active":
             return todos.filter(
                 todo => !todo.completed
             )

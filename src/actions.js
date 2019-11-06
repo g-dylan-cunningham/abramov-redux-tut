@@ -1,4 +1,5 @@
 import { v4 } from 'node-uuid';
+
 const addTodo = (text) => ({
     type: "ADD_TODO",
     id: v4(),
@@ -10,9 +11,9 @@ const toggleTodo = (id) => ({
     id
 })
 
-const setVisibilityFilter = (filter) => ({
-    type: "SET_VISIBILITY_FILTER",
-    filter
-})
+// const setVisibilityFilter = (filter) => ({
+//     type: "SET_VISIBILITY_FILTER",
+//     filter
+// })
 
-export { addTodo, toggleTodo, setVisibilityFilter };
+export { addTodo, toggleTodo };
