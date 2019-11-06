@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { todoApp } from './reducers/reducer';
+import todoApp from './reducers';
 import { saveState, loadLocalStorage } from './LocalStorage';
 import throttle from 'lodash/throttle';
 
@@ -13,16 +13,17 @@ import throttle from 'lodash/throttle';
 // }
 const configureStore = () => {
     const persistedState = loadLocalStorage();
-
     const store = createStore(todoApp, persistedState);
     store.subscribe(() => {
-        throttle(() => {
+        // console.log("ss")
+        // throttle(() => {
+            // console.log("SS throttle")
             saveState({
                 todos: store.getState().todos
             })
-        }, 1000);
+        // }, 1000);
     })
-    console.log(store.getState())
+    // console.log(store.getState())
 
     return store;
 }

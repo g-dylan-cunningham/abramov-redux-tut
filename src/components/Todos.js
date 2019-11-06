@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toggleTodo } from '../actions';
+import { getVisibleTodos } from '../reducers';
 
 const Todo = ({
     onClick,
@@ -63,8 +64,8 @@ const TodoList = ({
 // }
 // VisibleToDoList.contextType = StoreContext;
 
-const mapStateToProps = (state, { match: { params: { filter } }}) => {
-    // filter = ownProps.match.params.filter
+const mapStateToProps = (state, ownProps) => {
+    const {match: {params: {filter}}} = ownProps
     return {
         visibleTodos: getVisibleTodos(
             state.todos, 
@@ -72,35 +73,18 @@ const mapStateToProps = (state, { match: { params: { filter } }}) => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onTodoClick: (id) => {
-            dispatch(
-                toggleTodo(id)
-            )
-        }
-    }
-}
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onTodoClick: (id) => {
+//             dispatch(
+//                 toggleTodo(id)
+//             )
+//         }
+//     }
+// }
+// when this common pattern exists, we can simply pass an object in place of mapDispatchToProps var in connect function
 
 
-const getVisibleTodos = (
-    todos,
-    filter
-) => {
-    switch(filter) {
-        case "all":
-            return todos;
-        case "completed":
-            return todos.filter(
-                todo => todo.completed
-            );
-        case "active":
-            return todos.filter(
-                todo => !todo.completed
-            )
-        default:
-            return [];
-    }
-}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TodoList));
+
+export default withRouter(connect(mapStateToProps, {onTodoClick: toggleTodo})(TodoList));
